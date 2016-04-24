@@ -17,8 +17,9 @@ describe('WordCloud', () => {
                 label: 'Topic'
             }
         ];
+        const error = false;
         const wordCloudElement = TestUtils.renderIntoDocument(
-            <WordCloud topics={topics} />
+            <WordCloud topics={topics} error={error} />
         );
 
         expect(TestUtils.scryRenderedComponentsWithType(wordCloudElement, Word).length).toEqual(1);
@@ -42,5 +43,16 @@ describe('WordCloud', () => {
         const wordCloudDOMNode = ReactDOM.findDOMNode(wordCloudElement);
 
         expect(wordCloudDOMNode.textContent).toEqual('Loading...');
+    });
+
+    it("can display an error message when an error is passed in", () =>  {
+        const topics = [];
+        const error = {simple: "Error message", detail: {"error": "nasty error"}};
+        const wordCloudElement = TestUtils.renderIntoDocument(
+            <WordCloud topics={topics} error={error} />
+        );
+        const wordCloudDOMNode = ReactDOM.findDOMNode(wordCloudElement);
+
+        expect(wordCloudDOMNode.textContent).toEqual(error.simple);
     });
 });

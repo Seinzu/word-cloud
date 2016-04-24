@@ -37,11 +37,12 @@ class Main extends React.Component {
      * @returns {XML}
      */
 	render () {
+        const error = typeof this.props.error !== "undefined" ? this.props.error : false;
         return (
             <div className="container-fluid">
                 <div className="row">
                     <WordCloud onTopicSelect={(id) => this.selectTopic(id)}
-                               topics={this.props.topics} />
+                               topics={this.props.topics} error={error} />
                     {this.props.selectedTopic !== false ? (<TopicSummary topic={this.props.selectedTopic}/>) : ''}
                 </div>
             </div>
@@ -50,8 +51,8 @@ class Main extends React.Component {
 }
 
 const mapStateToProps = state => {
-    const {topics, selectedTopic} = state.TopicReducer;
-    return {topics, selectedTopic};
+    const {topics, selectedTopic, error} = state.TopicReducer;
+    return {topics, selectedTopic, error};
 };
 
 const mapDispatchToProps = (dispatch) => {

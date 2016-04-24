@@ -12,9 +12,14 @@ export default class WordCloud extends React.Component {
     };
 
     render() {
+        if (typeof this.props.error !== "undefined" && this.props.error && typeof this.props.error.simple !== "undefined") {
+            return (
+                <div className="alert alert-danger">{this.props.error.simple}</div>
+            );
+        }
         if (typeof this.props.topics === "undefined" || this.props.topics.length === 0) {
             return (
-                <p>Loading...</p>
+                <div>Loading...</div>
             );
         }
         return (
