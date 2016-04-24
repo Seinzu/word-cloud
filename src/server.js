@@ -16,6 +16,8 @@ try {
 	const app      = express();
 	const hostname = process.env.HOSTNAME || "localhost";
 	const port     = process.env.PORT || 8000;
+	const scriptHost = hostname;
+	const scriptPort = __DEV__ ? 8080 : port;
 	let   routes   = routesContainer;
 
     app.use(express.static(process.cwd() + '/static'));
