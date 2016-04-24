@@ -5,6 +5,12 @@ import createLogger from 'redux-logger';
 
 const loggerMiddleware = createLogger();
 
+const createTopicStore = function createTopicStore(middlewares, reducers) {
+    const reducer = combineReducers(reducers);
+    const store = createStore(reducer, applyMiddleware(...middlewares));
+    return store;
+};
+
 /**
  * Creates the topic store.
  *
@@ -12,7 +18,5 @@ const loggerMiddleware = createLogger();
  * @returns {*}
  */
 export default function topicStore() {
-    const reducer = combineReducers({TopicReducer});
-    const store = createStore(reducer, applyMiddleware(thunkMiddleware, loggerMiddleware));
-    return store;
+    return createTopicStore([thunkMiddleware, loggerMiddleware], {TopicReducer});
 };
