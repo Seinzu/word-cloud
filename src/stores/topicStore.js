@@ -17,6 +17,10 @@ const createTopicStore = function createTopicStore(middlewares, reducers) {
  * This is designed to be used isomorphically.
  * @returns {*}
  */
-export default function topicStore() {
-    return createTopicStore([thunkMiddleware, loggerMiddleware], {TopicReducer});
+export default function topicStore(log = false) {
+    let middlewares = [thunkMiddleware];
+    if (log) {
+        middlewares.push(loggerMiddleware);
+    }
+    return createTopicStore(middlewares, {TopicReducer});
 };

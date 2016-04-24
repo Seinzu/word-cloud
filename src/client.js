@@ -7,7 +7,8 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
 import topicStore from 'stores/topicStore';
 import less from "!style!css!less!./theme/main.less";
 const history = hashHistory;
-const store = topicStore();
+const debug = __DEV__ || false;
+const store = topicStore(debug);
 const reactRoot = window.document.getElementById("react-root");
 render(
     <Provider store={store}>
