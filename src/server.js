@@ -27,7 +27,6 @@ try {
     app.use((request, response) => {
         const location = CreateLocation(request.url);
         const store = topicStore(__DEV__);
-		store.dispatch(Actions.getTopics());
         ReactRouter.match({routes, location}, (error, redirect, props) => {
             if (!props) {
                 response.charset = 'utf-8';
