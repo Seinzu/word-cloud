@@ -35,18 +35,19 @@ export function requestTopics(date) {
  * Perform an async request to get the topics (uses thunk).
  * @returns {Function}
  */
-export function getTopics() {
+export function getTopics(date) {
+    const hostname = process.env.HOSTNAME || "localhost";
+    const port     = process.env.PORT || 8000;
     return dispatch => {
-        dispatch(requestTopics(Date.now()));
-        return fetch('http://localhost:8000/topics.json')
+        dispatch(requestTopics(date));
+        return fetch('http://' + hostname + ':' + port +'/topics.json')
             .then((response) => response.json())
             .then((json) => {
-                try {
                     const topics = json.topics;
                     dispatch(receiveTopics(topics));
-                } catch (error) {
-                    dispatch(reportTopicsError(error, Date.now()));
-                }
+            })
+            .catch((error) => {
+                dispatch(reportTopicsError(error))
             });
     }
 };

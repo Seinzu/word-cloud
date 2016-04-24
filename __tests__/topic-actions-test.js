@@ -1,5 +1,13 @@
 jest.unmock('../src/actions/topicActions');
 import * as TopicActions from '../src/actions/topicActions';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import nock from 'nock';
+import * as TestTopics from './assets/testTopics';
+import expect2 from 'expect';
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 
 /**
  * The TopicActions package contains the functions for creating the actions that are dispatched through the redux
@@ -42,5 +50,29 @@ describe('TopicActions', () => {
 
         const actualAction = TopicActions.reportTopicsError(error, date);
         expect(actualAction).toEqual(expectedAction);
+    });
+
+    /**
+     * Produce a harness to test whether we make the right sort of request for new topics and handle the
+     * response appropriately.
+     */
+    it('can create an action for getting new topics', (done) => {
+        const date = Date.now();
+        nock('http://localhost:8000/')
+            .get('/topics.json')
+            .reply(200, { topics: [TestTopics.berlinTopic] });
+
+        const expectedActions = [
+            { type:  TopicActions.REQUEST_TOPICS, date},
+            { type: TopicActions.RECEIVE_TOPICS, topics: [TestTopics.berlinTopic]}
+        ];
+        const store = mockStore({ topics: [] });
+
+        return store.dispatch(TopicActions.getTopics(date))
+            .then(() => {
+                // Test that we got all of the actions we expected.
+                expect(store.getActions()).toEqual(expectedActions);
+                done();
+            }).catch((error) => console.log(error));
     });
 });
