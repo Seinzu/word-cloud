@@ -57,7 +57,6 @@
     "redux-thunk": "^2.0.1"
   },
   "devDependencies": {
-    "postcss-loader": "^3.2.0",
     "babel": "6.5.2",
     "babel-core": "6.6.5",
     "babel-jest": "^11.0.2",
