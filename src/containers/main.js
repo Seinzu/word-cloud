@@ -1,5 +1,4 @@
 import React from "react";
-import Transmit from "react-transmit";
 import {bindActionCreators} from 'redux';
 import WordCloud from "../components/wordCloud";
 import TopicSummary from "../components/topicSummary";
