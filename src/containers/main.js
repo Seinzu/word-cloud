@@ -37,7 +37,6 @@ class Main extends React.Component {
      * @returns {XML}
      */
 	render () {
-        console.log(this.props.error);
         return (
             <div className="container-fluid">
                 <div className="row">
