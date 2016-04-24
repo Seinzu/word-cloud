@@ -24,7 +24,7 @@ export function calculateSentiment(topic) {
  */
 export function calculateProminence(topic, allTopics) {
     // Put the topics in order according to the total number of mentions (volume measures this).
-    const orderedTopics = allTopics.sort((a, b) => {
+    const orderedTopics = allTopics.slice(0).sort((a, b) => {
         return a.volume > b.volume ? 1 : -1;
     });
     // Work out the position of the topic that was passed in within the ordered list.

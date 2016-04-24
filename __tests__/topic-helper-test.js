@@ -4,6 +4,8 @@ import using from 'jasmine-data-provider';
 
 import * as TopicHelpers from '../src/helpers/topicHelpers';
 
+import * as TestTopics from './assets/testTopics';
+
 describe('calculateSentiment', () => {
 
     const positiveData = [
@@ -36,14 +38,20 @@ describe('calculateSentiment', () => {
     });
 
     const neutralData = [
-        40, 41, 59, 60, 50, 45, 55
+        {sentimentScore: 40},
+        {sentimentScore: 41},
+        {sentimentScore: 59},
+        {sentimentScore: 60},
+        {sentimentScore: 50},
+        {sentimentScore: 45},
+        {sentimentScore: 55},
+        TestTopics.clubCultureTopic,
+        TestTopics.djTopic
     ];
 
-    using(neutralData, (sentimentScore) => {
+    using(neutralData, (topic) => {
         it('will describe any sentiment score between 40 and 60 (inclusive) as neutral', () => {
-            const topic = {
-                sentimentScore
-            };
+
             const sentiment = TopicHelpers.calculateSentiment(topic);
 
             expect(sentiment).toEqual('neutral');
@@ -54,7 +62,9 @@ describe('calculateSentiment', () => {
 
 const prominenceData = [
     {topic: {id: 1, volume: 3}, expectation: 3},
-    {topic: {id: 1, volume: 15}, expectation: 6}
+    {topic: {id: 1, volume: 15}, expectation: 6},
+    {topic: TestTopics.clubCultureTopic, expectation: 3},
+    {topic: TestTopics.berlinTopic, expectation: 6}
 ];
 
 describe('calculateProminence', () => {
@@ -84,9 +94,12 @@ describe('calculateProminence', () => {
                 }
             ];
 
+            const originalTopics = topics.slice(0);
+
             const importance = TopicHelpers.calculateProminence(topic, topics);
 
             expect(importance).toEqual(expectation);
+            expect(topics).toEqual(originalTopics);
         })
     });
 

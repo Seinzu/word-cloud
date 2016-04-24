@@ -60,6 +60,66 @@ export const berlinTopic = {
     ]
 };
 
+export const clubCultureTopic = {
+    "id": "1751295897__club culture",
+    "label": "club culture",
+    "volume": 3,
+    "type": "topic",
+    "sentiment": {
+        "neutral": 3
+    },
+    "sentimentScore": 50,
+    "burst": 0,
+    "days": [
+        {
+            "date": "2014-06-06T00:00:00.000+0000",
+            "volume": 1
+        },
+        {
+            "date": "2014-06-04T00:00:00.000+0000",
+            "volume": 1
+        },
+        {
+            "date": "2014-06-09T00:00:00.000+0000",
+            "volume": 0
+        },
+        {
+            "date": "2014-06-07T00:00:00.000+0000",
+            "volume": 0
+        },
+        {
+            "date": "2014-06-08T00:00:00.000+0000",
+            "volume": 0
+        },
+        {
+            "date": "2014-06-03T00:00:00.000+0000",
+            "volume": 0
+        },
+        {
+            "date": "2014-06-05T00:00:00.000+0000",
+            "volume": 1
+        }
+    ],
+    "pageType": {
+        "blog": 0,
+        "facebook": 0,
+        "forum": 1,
+        "general": 0,
+        "image": 0,
+        "news": 2,
+        "review": 0,
+        "twitter": 0,
+        "video": 0
+    },
+    "queries": [
+        {
+            "id": 1751295897,
+            "name": "Berghain",
+            "volume": 3
+        }
+    ]
+};
+
 export const djTopic = {
     "id": "1751295897__DJ",
     "label": "DJ",

@@ -1,5 +1,4 @@
 import * as ActionTypes from '../constants/actionTypes';
-import {calculateSentiment, calculateProminence} from '../helpers/topicHelpers';
 
 const initialState = {
         topics: [],
@@ -23,12 +22,7 @@ export default function TopicReducer(state = initialState, action) {
         case ActionTypes.FETCH_TOPICS:
             return Object.assign({}, state, {isFetching: true});
         case ActionTypes.RECEIVE_TOPICS:
-            const topics = action.topics.map((topic, index, context) => {
-                topic.sentimentTenor = calculateSentiment(topic);
-                topic.size = calculateProminence(topic, context);
-                return topic;
-            });
-            return Object.assign({}, state, {isFetching: false, topics});
+            return Object.assign({}, state, {isFetching: false, topics: action.topics});
         case ActionTypes.ERROR_RECEIVING_TOPICS:
             return Object.assign({}, state, {isFetching: false, error: action.error});
         default:
