@@ -1,3 +1,14 @@
+@green: #00FF00;
+@grey: #AAAAAA;
+@red: #FF0000;
+
+@smallest: 16px;
+@smaller: 24px;
+@small: 32px;
+@big: 40px;
+@bigger: 48px;
+@biggest: 64px;
+
 #word-cloud {
   margin: 0 auto;
   padding: 2em 0;
@@ -5,15 +16,15 @@
 }
 
 dd.positive {
-  color: #00FF00;
+  color: @green;
 }
 
 dd.neutral {
-  color: #AAAAAA;
+  color: @grey;
 }
 
 dd.negative {
-  color: #FF0000;
+  color: @red;
 }
 
 #word-cloud span {
@@ -21,37 +32,37 @@ dd.negative {
 }
 
 #word-cloud span.sentiment-positive {
-  color: #00FF00;
+  color: @green;
 }
 
 #word-cloud span.sentiment-neutral {
-  color: #AAAAAA;
+  color: @grey;
 }
 
 #word-cloud span.sentiment-negative {
-  color: #FF0000;
+  color: @red;
 }
 
 #word-cloud .word-1 {
-  font-size: 16px;
+  font-size: @smallest;
 }
 
 #word-cloud .word-2 {
-  font-size: 24px;
+  font-size: @smaller;
 }
 
 #word-cloud .word-3 {
-  font-size: 32px;
+  font-size: @small;
 }
 
 #word-cloud .word-4 {
-  font-size: 40px;
+  font-size: @big;
 }
 
 #word-cloud .word-5 {
-  font-size: 48px;
+  font-size: @bigger;
 }
 
 #word-cloud .word-6 {
-  font-size: 70px;
+  font-size: @biggest;
 }

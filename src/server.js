@@ -20,6 +20,8 @@ try {
 
     app.use(express.static(process.cwd() + '/static'));
 
+	app.set('view engine', 'pug');
+
     app.use((request, response) => {
         const location = CreateLocation(request.url);
         const store = topicStore();
@@ -37,28 +39,10 @@ try {
             );
 
             const componentHTML = ReactDOM.renderToString(Component);
-            const body = `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="utf-8">
-        <title>Word cloud</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-              integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
-              crossorigin="anonymous">
-      </head>
-      <body>
-        <div class='page-header'>
-        	<h1>Word cloud</h1>
-        </div>
-        <div id='react-root'>${componentHTML}</div>
-        <script type='text/javascript' src="http://localhost:8080/dist/client.js"></script>
-      </body>
-    </html>
-      `
-            response.end(body);
-        })
-    });
+			const jsSrc = 'http://'+ scriptHost + ':' + scriptPort + '/dist/client.js';
+            response.render('index', {jsSrc, componentHTML});
+    	});
+	});
 
 	app.listen(port, () => {
 		console.info("==> Server is listening");

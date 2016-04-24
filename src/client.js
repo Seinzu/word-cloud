@@ -5,7 +5,7 @@ import routesContainer from "containers/routes";
 import {Provider} from "react-redux";
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import topicStore from 'stores/topicStore';
-
+import less from "!style!css!less!./theme/main.less";
 const history = hashHistory;
 const store = topicStore();
 const reactRoot = window.document.getElementById("react-root");

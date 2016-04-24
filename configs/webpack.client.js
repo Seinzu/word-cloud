@@ -24,7 +24,7 @@ module.exports = {
 		loaders: [
 			{test: /\.json$/, loaders: ["json"]},
 			{test: /\.(ico|gif|png|jpg|jpeg|svg|webp)$/, loaders: ["file?context=static&name=/[path][name].[ext]"], exclude: /node_modules/},
-            {test: /\.less$/, loader: "style!css!autoprefixer!less"}
+            {test: /\.less$/, loader: "style!css!less"}
 		],
 		postLoaders: [
 			{test: /\.js$/, loaders: ["babel?presets[]=es2015&presets[]=stage-0&presets[]=react"], exclude: /node_modules/}
