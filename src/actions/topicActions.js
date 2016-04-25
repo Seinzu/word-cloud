@@ -55,7 +55,7 @@ export function getTopics(date) {
                             return Object.assign({}, topic, {sentimentTenor, size});
                         }
                     });
-                    dispatch(receiveTopics(shuffle(topics)));
+                    dispatch(receiveTopics(topics));
             })
             .catch((error) => {
                 dispatch(reportTopicsError({simple: "Problem loading topic data", details: error}))
