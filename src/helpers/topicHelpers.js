@@ -41,3 +41,23 @@ export function calculateProminence(topic, allTopics) {
     // We round up because groups are named by integer and we are in the group above the result of the calculation.
     return Math.ceil(topicPosition / interval);
 }
+
+// Taken from Mike Bostock's (https://bost.ocks.org/mike/shuffle/) implementation of the Fisher-Yates algorithm.
+// This allows us to randomise the order of the provided topics, which will make the word cloud more interesting.
+export function shuffle(array) {
+    var m = array.length, t, i;
+
+    // While there remain elements to shuffle…
+    while (m) {
+
+        // Pick a remaining element…
+        i = Math.floor(Math.random() * m--);
+
+        // And swap it with the current element.
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
+    }
+
+    return array;
+}

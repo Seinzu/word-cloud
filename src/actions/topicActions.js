@@ -1,6 +1,6 @@
 import * as ActionTypes from '../constants/actionTypes';
 import fetch from 'isomorphic-fetch';
-import {calculateSentiment, calculateProminence} from '../helpers/topicHelpers';
+import {calculateSentiment, calculateProminence, shuffle} from '../helpers/topicHelpers';
 
 // Pass through the TOPIC_CHOSEN action type constant for ease of use.
 export const TOPIC_CHOSEN = ActionTypes.TOPIC_CHOSEN;
@@ -55,7 +55,7 @@ export function getTopics(date) {
                             return Object.assign({}, topic, {sentimentTenor, size});
                         }
                     });
-                    dispatch(receiveTopics(topics));
+                    dispatch(receiveTopics(shuffle(topics)));
             })
             .catch((error) => {
                 dispatch(reportTopicsError({simple: "Problem loading topic data", details: error}))
