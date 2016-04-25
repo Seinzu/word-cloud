@@ -20,7 +20,6 @@ const createTopicStore = function createTopicStore(middlewares, reducers) {
 export default function topicStore(log = false) {
     let middlewares = [thunkMiddleware];
     if (log) {
-        console.log("Push");
         middlewares.push(loggerMiddleware);
     }
     return createTopicStore(middlewares, {TopicReducer});
