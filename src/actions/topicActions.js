@@ -1,6 +1,6 @@
 import * as ActionTypes from '../constants/actionTypes';
 import fetch from 'isomorphic-fetch';
-import {calculateSentiment, calculateProminence, shuffle} from '../helpers/topicHelpers';
+import {calculateSentiment, calculateProminence, shuffle, fetchTopics} from '../helpers/topicHelpers';
 
 // Pass through the TOPIC_CHOSEN action type constant for ease of use.
 export const TOPIC_CHOSEN = ActionTypes.TOPIC_CHOSEN;
@@ -37,24 +37,9 @@ export function requestTopics(date) {
  * @returns {Function}
  */
 export function getTopics(date) {
-    const hostname = process.env.HOSTNAME || "localhost";
-    const port     = process.env.PORT || 8000;
     return dispatch => {
         dispatch(requestTopics(date));
-        return fetch('http://' + hostname + ':' + port +'/topics.json')
-            .then((response) => response.json())
-            .then((json) => {
-                    const topics = json.topics.map((topic, idx, context) => {
-                        var sentimentTenor = 'neutral', size = 1;
-                        try {
-                            sentimentTenor = calculateSentiment(topic);
-                            size = calculateProminence(topic, context);
-                        } catch (error) {
-                            console.log(error);
-                        } finally {
-                            return Object.assign({}, topic, {sentimentTenor, size});
-                        }
-                    });
+        return fetchTopics().then((topics) => {
                     dispatch(receiveTopics(topics));
             })
             .catch((error) => {

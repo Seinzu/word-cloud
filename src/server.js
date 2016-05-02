@@ -7,6 +7,7 @@ import * as Actions from './actions/topicActions';
 import CreateLocation from "history/lib/createLocation";
 import {Provider} from "react-redux";
 import topicStore from "stores/topicStore.js";
+import {fetchTopics} from "helpers/topicHelpers";
 
 import routesContainer from "containers/routes";
 
@@ -33,15 +34,21 @@ try {
                 return response.header("Content-Type", "application/json; charset=utf-8").
                     status(404).end('Resource not found.');
             }
-            const Component = (
-                <Provider store={store}>
-                    <ReactRouter.RouterContext {...props} />
-                </Provider>
-            );
 
-            const componentHTML = ReactDOM.renderToString(Component);
-			const jsSrc = 'http://'+ scriptHost + ':' + scriptPort + '/dist/client.js';
-            response.render('index', {jsSrc, componentHTML});
+            fetchTopics().then((topics) => {
+                store.dispatch(Actions.receiveTopics(topics));
+                const Component = (
+                    <Provider store={store}>
+                        <ReactRouter.RouterContext {...props} />
+                    </Provider>
+                );
+
+                const componentHTML = ReactDOM.renderToString(Component);
+                const jsSrc = 'http://'+ scriptHost + ':' + scriptPort + '/dist/client.js';
+                response.render('index', {jsSrc, componentHTML});
+            }).catch((error) => {
+                response.render('error', {error})
+            });
     	});
 	});
 
